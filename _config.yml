@@ -60,7 +60,8 @@ plugins:
 author:
   name   : "Eirik Yates"
   avatar : "/assets/images/pfp2.jpg"
-  bio    : "Sheridan College\ 3rd Year Student within the Honors Bachelor of Information Sciences (Cyber Security) Program"
+  bio    : "Sheridan College\  
+  3rd Year Student within the Honors Bachelor of Information Sciences (Cyber Security) Program"
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
