@@ -9,4 +9,4 @@ Since highschool, I've had a passion for dealing with tech and took as many comp
 
 This page is dedicated towards docummenting my cyber security journey. As I continue to learn more about this field, I hope to share my thought process as to how I approach and sovled different projects, alongside my biggest takeaways from them!
 
-[Link to resume](assets\misc files\Eirik Yates - Resume Apr 2025.pdf)
+[Link to resume](https://github.com/e1r1kk/e1r1kk.github.io/blob/master/assets/misc%20files/Eirik%20Yates%20-%20Resume%20Apr%202025.pdf)
