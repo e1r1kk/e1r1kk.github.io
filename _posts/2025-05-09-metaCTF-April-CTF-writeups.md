@@ -28,7 +28,7 @@ Based on this briefing, our goal seems to be that we must decrypt a message to f
 
 
 ### Info Gathering 
-In this challenge, we're first provided with the following artifact:
+We're provided with the following artifact:
 
 ```java
 public class chal {
@@ -95,3 +95,12 @@ Within the **encodeFlag()** function, there's a comment provided which indicates
 Using the information that we've found, I used [CyberChef](https://gchq.github.io/CyberChef/) to decrypt the flag using the ROT13 recipe, providing me with the final flag: **MetaCTF{cappuccino_with_a_rotation_of_cream_please}**
 
 ## 2. MetaShop
+
+### Brief
+
+We're provided with the following message:
+
+> I've been looking at a shop website one of my friends made. Among the quotes, it contains one very important flag. Can you exploit the shop and retrieve it for me?
+
+Alongside this, we're provided a docker image alongside a link to its corresponding website:
+![metashop homepage](C:\Users\eirik\Documents\Git\e1r1kk.github.io\assets\images\Homepage of MetaShop.png)
