@@ -6,6 +6,6 @@ tags:
   - CTF
   - Webapp
 classes: wide
-words_per_minute: 500
+words_per_minute: 100000
 ---
 
