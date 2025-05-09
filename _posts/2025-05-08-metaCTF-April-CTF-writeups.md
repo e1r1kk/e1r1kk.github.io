@@ -5,4 +5,7 @@ categories:
 tags:
   - CTF
   - Webapp
+classes: wide
+words_per_minute: 500
 ---
+
