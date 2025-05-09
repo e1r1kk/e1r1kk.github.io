@@ -60,7 +60,7 @@ public class chal {
 
 After looking through the code, there are two main pieces of code that we're concerned with:
 
-1. The encoded flag: `java String encodedFlag = "ZrgnPGS{pncchppvab_jvgu_n_ebgngvba_bs_pernz_cyrnfr}"; `
+1. The encoded flag: ```ZrgnPGS{pncchppvab_jvgu_n_ebgngvba_bs_pernz_cyrnfr} ```
 2. The encoding method used:
 ```java
 private static String encodeFlag(String input) {
