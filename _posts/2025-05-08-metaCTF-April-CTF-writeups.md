@@ -57,3 +57,29 @@ public class chal {
     }
 }
 ```
+
+After looking through the code, there are two main pieces of code that we're concerned with:
+
+1. The encoded flag provided: `java String encodedFlag = "ZrgnPGS{pncchppvab_jvgu_n_ebgngvba_bs_pernz_cyrnfr}"; `
+2. The encoding method used:
+```java
+private static String encodeFlag(String input) {
+        StringBuilder result = new StringBuilder();
+        for (char c : input.toCharArray()) {
+            if (Character.isLetter(c)) {
+                // ROT13 transformation
+                char base = Character.isUpperCase(c) ? 'A' : 'a';
+                result.append((char) (base + (c - base + 13) % 26));
+            } else {
+                result.append(c);
+            }
+        }
+        return result.toString();
+    }
+```
+
+Within the **encodeFlag()** function, there's a comment provided which indicates the encryption method used - ROT13.
+
+### Solution
+
+Using the information that we've found, I used [CyberChef](https://gchq.github.io/CyberChef/) to decrypt the flag using the ROT13 recipe, providing me with the final flag: **MetaCTF{cappuccino_with_a_rotation_of_cream_please}**
