@@ -1,6 +1,7 @@
 ---
 permalink: /about/
 title: "About"
+classes: wide
 ---
 
 Hi there! My name is Eirik Yates and I am a 3rd year student at Sheridan College within the Honors Bachelor of Information Sciences (Cyber Security) program. I am also a memeber of the **Information Security Sessions** ([ISSessions](https://issessions.ca/about/)) club, pursuing the CTF Development Lead and the CTF Developer role.
