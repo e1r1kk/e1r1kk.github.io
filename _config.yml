@@ -95,7 +95,7 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: true
+      read_time: false #words_per_minute: changer wasn't working, so I'll keep it false for now
       comments: true
       share: true
       related: true
