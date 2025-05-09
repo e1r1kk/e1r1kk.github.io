@@ -1,10 +1,11 @@
 ---
 title: "MetaCTF April 2025 CTF Writeup"
 categories:
-  - Writeups
+  - MetaCTF Writeups
 tags:
   - CTF
   - Webapp
+  - Encryption
 classes: wide
 ---
 
@@ -17,7 +18,16 @@ In this post, I will be showing my thought process and approach to solving these
 # Challenges
 
 ## 1. Caffeine Conundrum
+### Brief
 
+We are provided with the following message:
+
+> The barista left you a note in the java shop, but it seems to be encrypted, can you read it?
+
+Based on this briefing, our goal seems to be that we must decrypt a message to find our flag.
+
+
+### Info Gathering 
 In this challenge, we're first provided with the following artifact:
 
 ```java
@@ -83,3 +93,5 @@ Within the **encodeFlag()** function, there's a comment provided which indicates
 ### Solution
 
 Using the information that we've found, I used [CyberChef](https://gchq.github.io/CyberChef/) to decrypt the flag using the ROT13 recipe, providing me with the final flag: **MetaCTF{cappuccino_with_a_rotation_of_cream_please}**
+
+## 2. MetaShop
