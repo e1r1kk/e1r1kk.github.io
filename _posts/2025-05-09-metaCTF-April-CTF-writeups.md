@@ -103,4 +103,4 @@ We're provided with the following message:
 > I've been looking at a shop website one of my friends made. Among the quotes, it contains one very important flag. Can you exploit the shop and retrieve it for me?
 
 Alongside this, we're provided a docker image alongside a link to its corresponding website:
-![metashop homepage]('C:\Users\eirik\Documents\Git\e1r1kk.github.io\assets\images\Homepage of MetaShop.png')
+![metashop homepage]('..\assets\images\Homepage of MetaShop.png')
