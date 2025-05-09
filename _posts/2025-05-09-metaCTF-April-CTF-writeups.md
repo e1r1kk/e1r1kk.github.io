@@ -9,16 +9,16 @@ tags:
 classes: wide
 ---
 
-# Overview
+## Overview
 
 On April 24th, [**MetaCTF**](https://metactf.com) hosted a Flash CTF competition, providing various challenges to see who could solve them the fastest. Although I didn't compete on the day of the competition, the challenges were still available after the competition ended, so I decided to take a stab at them to see what I could solve!
 
 In this post, I will be showing my thought process and approach to solving these challenges. Out of the 5 challenges provided, I was able to solve 2 of them. However, I will updating this post if I solve more of them in the future. 
 
-# Challenges
+## Challenges
 
-## 1. Caffeine Conundrum
-### Brief
+### 1. Caffeine Conundrum
+#### Brief
 
 We are provided with the following message:
 
@@ -27,7 +27,7 @@ We are provided with the following message:
 Based on this briefing, our goal seems to be that we must decrypt a message to find our flag.
 
 
-### Info Gathering 
+#### Info Gathering 
 We're provided with the following artifact:
 
 ```java
@@ -90,13 +90,13 @@ private static String encodeFlag(String input) {
 
 Within the **encodeFlag()** function, there's a comment provided which indicates the encryption method used - ROT13. Knowing this, we can easily decrypt the encrypted flag to its original form.
 
-### Solution
+#### Solution
 
 Using the information that we've found, I used [CyberChef](https://gchq.github.io/CyberChef/) to decrypt the flag using the ROT13 recipe, providing me with the final flag: **MetaCTF{cappuccino_with_a_rotation_of_cream_please}**
 
-## 2. MetaShop
+### 2. MetaShop
 
-### Brief
+#### Brief
 
 We're provided with the following message:
 
