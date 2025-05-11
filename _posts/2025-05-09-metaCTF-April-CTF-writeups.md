@@ -1,5 +1,5 @@
 ---
-title: "MetaCTF April 2025 CTF Writeup"
+title: "MetaCTF April 2025 CTF Writeup - Incomplete"
 categories:
   - MetaCTF Writeups
 tags:
