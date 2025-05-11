@@ -106,6 +106,10 @@ Alongside this, we're provided a docker image alongside a link to its correspond
 
 ![metashop homepage](\assets\images\April2025MetaCTF\MetaShopHomepage.png)
 
+Based on this briefing, our goal seems to involve manipulation of a site to buy our flag.
+
+### Info Gathering
+
 After signing up and loging in, we can load the Products page and see the different products we can buy - one of which being our $1000 dollar flag:  
 
 ![product page](\assets\images\April2025MetaCTF\ProductPage.png)
@@ -116,6 +120,14 @@ If we go to our profile, we see that we have $100. The question is, how can we g
 
 The first thing I wanted to do was see what cookies were being sent when loading the profile page. My goal would be to manually set whatever "balance" variable was being used to store the users balance.
 
-Using Burpe Suite, I intercepted the traffic for the profile page and found a JWT cookie:  
+Using Burpe Suite, I intercepted the traffic for the profile page and found a JSON Web Token (JWT) cookie:  
 
 ![base profile](\assets\images\April2025MetaCTF\BaseProfileRequest.png)
+
+For those who don't know what a JWT cookie is (as I didn't upon finding it), it's a form of authentication which utilizes encryption and a signature to store JSON data. Utilizing this [JWT Debugger](https://token.dev/), we can take a look at what data is being stored inside.
+
+![jwt debugger](\assets\images\April2025MetaCTF\JWTDebugger.png)
+
+Within the payload, we see two parameters being stored: The accounts balance and the account's email address. If we take a look at this apps ruby file, we can see how this JWT is being made.  
+
+![login view](\assets\images\April2025MetaCTF\LoginView.png)
