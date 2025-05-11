@@ -135,4 +135,4 @@ Within the payload, we see two parameters being stored: The account's email addr
 
 
 ![User Authentication Method](\assets\images\April2025MetaCTF\UserAuthenticationMethod.png)  
-<p style {font-size:20px; font-style:italic;}>JWT Account Authentication</p>
+<p style="font-size:20px; font-style:italic;">JWT Account Authentication</p>
