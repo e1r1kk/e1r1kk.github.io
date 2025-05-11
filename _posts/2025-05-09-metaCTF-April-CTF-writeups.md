@@ -196,10 +196,11 @@ We can abuse this JWT update process through the use of Burpe Suites Repeater.
 
 2. **Before forwarding the captured traffic within the proxy,** send it to the repeater and send that request as many times as you can until you have "Insufficient funds."
 ![Repeater Abuse](\assets\images\April2025MetaCTF\RepeaterAbuse.png)
-<p style="font-size:20px; font-style:italic;">Traffic after the 6th purchase</p>
 
 3. Now forward the original captured traffic from the proxy and turn off the intercept.
 Notice that it will say "Insufficient funds or product not found," since this will technically be the 7th purchase that you've attempted.
-![Seventh Purchase](\assets\images\April2025MetaCTF\SeventhPurchase.png)  
+<img src="\assets\images\April2025MetaCTF\SeventhPurchase.png" width=400 height=200>
+[![Seventh Purchase](\assets\images\April2025MetaCTF\SeventhPurchase.png)]: #
+  
 However, once we load the Profile page, we see that our balance... is still at $100!
 ![Free Products Who Dis](\assets\images\April2025MetaCTF\FreeProductsWhoDis.png) 
