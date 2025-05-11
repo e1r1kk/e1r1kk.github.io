@@ -111,7 +111,7 @@ We're provided with the following message:
 
 > I've been looking at a shop website one of my friends made. Among the quotes, it contains one very important flag. Can you exploit the shop and retrieve it for me?
 
-Alongside this, we're provided a docker image alongside a link to its corresponding website:  
+Alongside this, we're provided a Docker image alongside a link to its corresponding website:  
 
 ![metashop homepage](\assets\images\April2025MetaCTF\MetaShopHomepage.png)
 
@@ -119,25 +119,25 @@ Based on this briefing, our goal seems to involve manipulation of a site to buy 
 
 ### Info Gathering
 
-After signing up and loging in, we can load the Products page and see the different products we can buy - one of which being our $1000 dollar flag:  
+After signing up and logging in, we can load the Products page and see the different products we can buy - one of which being our $1000 dollar flag:  
 
 ![product page](\assets\images\April2025MetaCTF\ProductPage.png)
 
-If we go to our profile, we see that we have $100. The question is, how can we gain more money when we can only buy and refund products we've bought?  
+If we go to our profile, we see that we have $100. The question is, how can we gain more money if we can only buy and return products we've bought?  
 
 ![base profile](\assets\images\April2025MetaCTF\BaseProfile.png)
 
-The first thing I wanted to do was see what cookies were being sent when loading the profile page. My goal would be to manually set whatever "balance" variable was being used to store the users balance.
+The first thing I wanted to do was see what cookies were being sent when loading the Profile page. My goal was to manipulate whatever "balance" variable was being used to store the user's balance, giving myself the exact balance I would need to buy the flag.
 
 Using Burpe Suite, I intercepted the traffic for the profile page and found a **JSON Web Token** (JWT) cookie:  
 
 ![base profile](\assets\images\April2025MetaCTF\BaseProfileRequest.png)
 
-For those who don't know what a JWT cookie is (as I didn't upon finding it), it's a form of authentication which utilizes encryption and a signature to store JSON data. Utilizing a [JWT Debugger](https://token.dev/), we can take a look at what data is being stored inside.
+For those who don't know what a JWT cookie is (as I didn't upon finding it), it's a form of authentication which utilizes encryption and a signature to store JSON data. Utilizing a [JWT Debugger](https://token.dev/), I took a look at what data was being stored inside.
 
 ![jwt debugger](\assets\images\April2025MetaCTF\JWTDebugger.png)
 
-Within the payload, we see two parameters being stored: The account's email address and the accounts **balance**. If we take a look at this Docker's **app.rb** file, we can see how this JWT is being made and authenticated:
+Within the payload, I found two parameters being stored: The account's email address and the accounts **balance**. To see how this JWT is being made and authenticated, I looked inside the **app.rb** file witin the Docker image: 
 <p style="font-size:20px; font-style:italic;">JWT Creation</p>
 
 ```ruby
@@ -153,8 +153,7 @@ post "/login" do
   end
 end
 ```
-
-
+  
 <p style="font-size:20px; font-style:italic;">JWT Account Authentication</p>  
 
 ```ruby
@@ -179,11 +178,11 @@ helpers do
 end
 ```
 
-This authentication method is used with any GET request done throughout the website. Because of this, manually changing the balance to have $1000 dollars won't be possible since that will also cause the signature of the JWT to change, thus making it invalid. However, there are two spots where the JWT isn't be verified - when you buy and sell products.
+This authentication method was used with any GET request done throughout the website. Because of this, manually changing the balance to have $1000 dollars wasn't possible since it caused the signature of the JWT to change, thus making it invalid. However, there were two spots where the JWT wasn't being verified: when you **buy** and **sell** products.
 
 #### Solution
 
-In the **app.rb** file, when something is being bought, it updates your balance and creates a new JWT to reflect the new balance:
+In the **app.rb** file, I found that when something was being bought, it updated your balance and created a new JWT to reflect the new balance:
 
 ```ruby
   product_id = params[:product_id].to_i - 1
@@ -201,29 +200,29 @@ In the **app.rb** file, when something is being bought, it updates your balance 
     response.set_cookie("jwt", value: new_token, path: "/")
 ```
 
-We can abuse this JWT update process through the use of Burpe Suites Repeater.
+I noticed that the code never verified the balance before being updated, thus I could abuse this JWT update process through the use of Burpe Suites Repeater through the following steps:
 
-1. Capture the traffic of buying a product (in this case, the second one as to optimize profits).  
+1. I Captured the traffic of buying a product (in this case, the second one as to optimize profits).  
 
 ![Initial Buy Captured](\assets\images\April2025MetaCTF\InitialBuyCaptured.png)
 
-2. **Before forwarding the captured traffic within the proxy,** send it to the Repeater and send that request as many times as you can until you have "Insufficient funds."  
+2. **Before forwarding the captured traffic within the proxy,** I sent it to the Repeater and processed that request as many times as I could until I had "Insufficient funds."  
 
 ![Repeater Abuse](\assets\images\April2025MetaCTF\RepeaterAbuseResponse.png)
 
-3. Now forward the captured traffic from the proxy and turn off the intercept.  
+3. I then processed the captured traffic from the proxy itself and turned off the intercept.  
   
-Upon loading the profile page, we'd normally expect to see our balance at $0 based on our response within the Burpe Repeater. But since we froze the traffic with our original JWT that had a balance of $100 dollars, sending it only after we had bought as many products as we could through the Repeater, we confuse the app into setting the new JWT as the exact same JWT, resulting in no lost of funds!  
+Since I froze the traffic with my original JWT that had a balance of $100 dollars, sending it only after I had bought as many products as I could through the Repeater, I confused the app into setting the new JWT as the one with $100 dollars, resulting in no lost of funds!  
 
 ![Free Products Who Dis](\assets\images\April2025MetaCTF\FreeProductsWhoDis.png) 
 
-4. Sell all of your "purchased" products, then repeating Step 1-3 until you have enough money to purchase the flag!  
+4. After selling all of my "purchased" products, I repeated Step 1-3 until I had enough money to purchase the flag!  
   
-Eventually, your profile will look like this:
+Eventually, my profile looked like this:
 
 ![Holy Money](\assets\images\April2025MetaCTF\HolyMoney.png)  
 
-Now that we have enough money, we can buy our flag and see it at the bottom of our quotes:
+Now that I had enough money, I could buy the flag and see it at the bottom of my quotes:
 
 ![MetaShop Flag](\assets\images\April2025MetaCTF\MetaShopFlag.png)  
 
