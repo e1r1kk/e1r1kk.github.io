@@ -195,7 +195,7 @@ We can abuse this JWT update process through the use of Burpe Suites Repeater.
 ![Initial Buy Captured](\assets\images\April2025MetaCTF\InitialBuyCaptured.png)
 
 2. **Before forwarding the captured traffic within the proxy,** send it to the repeater and send that request as many times as you can until you have "Insufficient funds."
-<img src="\assets\images\April2025MetaCTF\RepeaterAbuse.png" width=1000 height=1200>
+<img src="\assets\images\April2025MetaCTF\RepeaterAbuse.png" width=30000 height=1200>
 
 
 3. Now forward the original captured traffic from the proxy and turn off the intercept.
