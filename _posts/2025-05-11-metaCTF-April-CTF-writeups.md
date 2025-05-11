@@ -11,9 +11,9 @@ classes: wide
 
 ## Overview
 
-On April 24th, [**MetaCTF**](https://metactf.com) hosted a Flash CTF competition, providing various challenges to see who could solve them the fastest. Although I didn't compete on the day of the competition, the challenges were still available after the competition ended, so I decided to take a stab at them to see what I could solve!
+On April 24th, [**MetaCTF**](https://metactf.com) hosted a Flash CTF competition providing various challenges to see who could solve them the fastest. Although I didn't compete on the day of the competition, the challenges were still available after the competition ended, so I decided to take a stab at them to see what I could solve!
 
-In this post, I will be showing my thought process and approach to solving these challenges. Out of the 5 challenges provided, I was able to solve 2 of them. However, I will updating this post if I solve more of them in the future. 
+In this post, I will be showing my thought process and approach to solving these challenges. Out of the 5 provided, I was able to solve 2 of them, but I will update this post if I solve any more in the future. 
 
 ## Challenges
 
@@ -68,9 +68,9 @@ public class chal {
 }
 ```
 
-After looking through the code, there are two main pieces of code that we're concerned with:
+After looking through the artifact, there are two main pieces of code that we're concerned with:
 
-1. The encoded flag: ```ZrgnPGS{pncchppvab_jvgu_n_ebgngvba_bs_pernz_cyrnfr} ```
+1. The encoded flag: **ZrgnPGS{pncchppvab_jvgu_n_ebgngvba_bs_pernz_cyrnfr}**
 2. The encoding method used:
 ```java
 private static String encodeFlag(String input) {
@@ -93,6 +93,8 @@ Within the **encodeFlag()** function, there's a comment provided which indicates
 #### Solution
 
 Using the information that we've found, I used [CyberChef](https://gchq.github.io/CyberChef/) to decrypt the flag using the ROT13 recipe, providing me with the final flag: **MetaCTF{cappuccino_with_a_rotation_of_cream_please}**
+
+---
 
 ### 2. MetaShop
 
@@ -128,7 +130,7 @@ For those who don't know what a JWT cookie is (as I didn't upon finding it), it'
 
 ![jwt debugger](\assets\images\April2025MetaCTF\JWTDebugger.png)
 
-Within the payload, we see two parameters being stored: The account's email address and the accounts **balance**. If we take a look at this Docker's **app.rb** file, we can see how this JWT is being made:
+Within the payload, we see two parameters being stored: The account's email address and the accounts **balance**. If we take a look at this Docker's **app.rb** file, we can see how this JWT is being made and authenticated:
 <p style="font-size:20px; font-style:italic;">JWT Creation</p>
 
 ```ruby
@@ -170,11 +172,11 @@ helpers do
 end
 ```
 
-This authentication method is used with any GET request done throughout the website. Because of this, manually changing the balance to have $1000 dollars won't be possible since that will also cause the signature of the JWT to change, thus making it invalid. However, there are two spots where the JWT isn't be verified: when you buy and sell products.
+This authentication method is used with any GET request done throughout the website. Because of this, manually changing the balance to have $1000 dollars won't be possible since that will also cause the signature of the JWT to change, thus making it invalid. However, there are two spots where the JWT isn't be verified - when you buy and sell products.
 
 #### Solution
 
-In the **app.rb** file, when something is being bought, it creates a new JWT to reflect the new balance that we have:
+In the **app.rb** file, when something is being bought, it updates your balance and creates a new JWT to reflect the new balance:
 
 ```ruby
   product_id = params[:product_id].to_i - 1
@@ -194,17 +196,22 @@ In the **app.rb** file, when something is being bought, it creates a new JWT to 
 
 We can abuse this JWT update process through the use of Burpe Suites Repeater.
 
-1. Capture the traffic of buying a product (in this case, the second one as to optimize profits).
+1. Capture the traffic of buying a product (in this case, the second one as to optimize profits).  
+
 ![Initial Buy Captured](\assets\images\April2025MetaCTF\InitialBuyCaptured.png)
 
-2. **Before forwarding the captured traffic within the proxy,** send it to the Repeater and send that request as many times as you can until you have "Insufficient funds."
+2. **Before forwarding the captured traffic within the proxy,** send it to the Repeater and send that request as many times as you can until you have "Insufficient funds."  
+
 ![Repeater Abuse](\assets\images\April2025MetaCTF\RepeaterAbuseResponse.png)
 
-3. Now forward the original captured traffic from the proxy, turn off the intercept.  
-Upon loading the profile page, we'd normally expect to see our balance at $0 based on our response within the Burpe Repeater. But since we froze the traffic with our original JWT that had a balance of $100 dollars, sending it only after we had bought as many products as we could through the Repeater, we confuse the app into setting the new JWT as the exact same JWT, resulting in no lost of funds!
+3. Now forward the captured traffic from the proxy and turn off the intercept.  
+  
+Upon loading the profile page, we'd normally expect to see our balance at $0 based on our response within the Burpe Repeater. But since we froze the traffic with our original JWT that had a balance of $100 dollars, sending it only after we had bought as many products as we could through the Repeater, we confuse the app into setting the new JWT as the exact same JWT, resulting in no lost of funds!  
+
 ![Free Products Who Dis](\assets\images\April2025MetaCTF\FreeProductsWhoDis.png) 
 
-4. Sell all of our "purchased" products, repeating Step 1-3 untill you have enough to purchase our flag!  
+4. Sell all of your "purchased" products, then repeating Step 1-3 until you have enough money to purchase the flag!  
+  
 Eventually, your profile will look like this:
 
 ![Holy Money](\assets\images\April2025MetaCTF\HolyMoney.png)  
@@ -213,4 +220,9 @@ Now that we have enough money, we can buy our flag and see it at the bottom of o
 
 ![MetaShop Flag](\assets\images\April2025MetaCTF\MetaShopFlag.png)  
 
-**Note:** This was my way of solving this challenge. However, the official writeup solves this challenge in a different, yet similar way by abusing the return function. If you'd like to see that solution, [check it out!](https://metactf.com/blog/flash-ctf-metashop/)
+## Conclusion
+
+Thank you for taking the time to read this post! I will be posting my own writeups for MetaCTF's competitions once a month until August. Once September comes, I will be back to full time classes, so posting will slow down for a little while.  
+  
+If you would like to see the official writeups for these challenges, check them out on [MetaCTF's](https://metactf.com/blog/tag/flash-apr2025/) website.
+
