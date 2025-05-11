@@ -12,7 +12,7 @@ classes: wide
  - [Overview](#overview)
  - [Challenges](#challenges)
     - [1. Caffeine Conundrum (Simple)](#1-caffeine-conundrum)
-    - [2. Metashop](#2-metashop)
+    - [2. Metashop (Complex)](#2-metashop)
  - [Conclusion](#conclusion)
 ## Overview
 
