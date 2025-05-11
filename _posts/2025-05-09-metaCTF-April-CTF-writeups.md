@@ -109,3 +109,13 @@ Alongside this, we're provided a docker image alongside a link to its correspond
 After signing up and loging in, we can load the Products page and see the different products we can buy - one of which being our $1000 dollar flag:  
 
 ![product page](\assets\images\April2025MetaCTF\ProductPage.png)
+
+If we go to our profile, we see that we have $100. The question is, how can we gain more money when we can only buy and refund products we've bought?  
+
+![base profile](\assets\images\April2025MetaCTF\BaseProfile.png)
+
+The first thing I wanted to do was see what cookies were being sent when loading the profile page. My goal would be to manually set whatever "balance" variable was being used to store the users balance.
+
+Using Burpe Suite, I intercepted the traffic for the profile page and found a JWT cookie:  
+
+![base profile](\assets\images\April2025MetaCTF\BaseProfileRequest.png)
