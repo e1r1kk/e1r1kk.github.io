@@ -177,6 +177,9 @@ This authentication method is used with any GET request done throughout the webs
 In the **app.rb** file, when something is being bought, it creates a new JWT to reflect the new balance that we have:
 
 ```ruby
+  product_id = params[:product_id].to_i - 1
+  product = PRODUCTS[product_id]
+  user_email = current_user["email"] 
  if product && users[user_email][:balance] >= product[:price]
     users[user_email][:balance] -= product[:price]
     users[user_email][:quotes].push((product[:Product]))
@@ -194,14 +197,20 @@ We can abuse this JWT update process through the use of Burpe Suites Repeater.
 1. Capture the traffic of buying a product (in this case, the second one as to optimize profits).
 ![Initial Buy Captured](\assets\images\April2025MetaCTF\InitialBuyCaptured.png)
 
-2. **Before forwarding the captured traffic within the proxy,** send it to the repeater and send that request as many times as you can until you have "Insufficient funds."
-<img src="\assets\images\April2025MetaCTF\RepeaterAbuse.png" width=30000 height=1200>
+2. **Before forwarding the captured traffic within the proxy,** send it to the Repeater and send that request as many times as you can until you have "Insufficient funds."
+![Repeater Abuse](\assets\images\April2025MetaCTF\RepeaterAbuse.png)
 
-
-3. Now forward the original captured traffic from the proxy and turn off the intercept.
-Notice that it will say "Insufficient funds or product not found," since this will technically be the 7th purchase that you've attempted.
-
-![Seventh Purchase](\assets\images\April2025MetaCTF\SeventhPurchase.png)
-  
-However, once we load the Profile page, we see that our balance... is still at $100!
+3. Now forward the original captured traffic from the proxy, turn off the intercept.
+Upon loading the profile page, we'd normally expect to see our balance at $0 based on our response within the Burpe Repeater. But since we froze the traffic with our original JWT that had a balance of $100 dollars, sending it only after we had bought as many products as we could through the Repeater, we confuse the app into setting the new JWT as the exact same JWT, resulting in no lost of funds!
 ![Free Products Who Dis](\assets\images\April2025MetaCTF\FreeProductsWhoDis.png) 
+
+4. Sell all of our "purchased" products, repeating Step 1-3 untill you have enough to purchase our flag!
+Eventually, your profile will look like this:
+
+![Holy Money](\assets\images\April2025MetaCTF\HolyMoney.png)  
+
+Now that we have enough money, we can buy our flag and see it at the bottom of our quotes:
+
+![MetaShop Flag](\assets\images\April2025MetaCTF\MetaShopFlag.png)  
+
+**Note:** This was my way of solving this challenge. However, the official writeup solves this challenge in a different, yet similar way by abusing the return function. If you'd like to see that solution, [check it out!](https://metactf.com/blog/flash-ctf-metashop/)
