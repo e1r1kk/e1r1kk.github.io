@@ -8,7 +8,9 @@ tags:
   - Encryption
 classes: wide
 ---
-# Table of Contents
+
+
+## Table of Contents
  - [Overview](#overview)
  - [Challenges](#challenges)
     - [1. Caffeine Conundrum (Simple)](#1-caffeine-conundrum)
