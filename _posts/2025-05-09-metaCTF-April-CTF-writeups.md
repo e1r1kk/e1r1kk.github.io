@@ -124,7 +124,7 @@ Using Burpe Suite, I intercepted the traffic for the profile page and found a **
 
 ![base profile](\assets\images\April2025MetaCTF\BaseProfileRequest.png)
 
-For those who don't know what a JWT cookie is (as I didn't upon finding it), it's a form of authentication which utilizes encryption and a signature to store JSON data. Utilizing this [JWT Debugger](https://token.dev/), we can take a look at what data is being stored inside.
+For those who don't know what a JWT cookie is (as I didn't upon finding it), it's a form of authentication which utilizes encryption and a signature to store JSON data. Utilizing a [JWT Debugger](https://token.dev/), we can take a look at what data is being stored inside.
 
 ![jwt debugger](\assets\images\April2025MetaCTF\JWTDebugger.png)
 
@@ -170,15 +170,16 @@ helpers do
 end
 ```
 
-This authentication method is used with any GET request done throughout the website. Because of this, manually changing the balance to have $1000 dollars won't be possible since that will also cause the signature of the JWT to change, thus making it invalid. However, there is one spot where the JWT isn't be verified.
+This authentication method is used with any GET request done throughout the website. Because of this, manually changing the balance to have $1000 dollars won't be possible since that will also cause the signature of the JWT to change, thus making it invalid. However, there are two spots where the JWT isn't be verified: when you buy and sell products.
 
 #### Solution
 
-In the **app.rb** file, when something is being returned, we create a new JWT to reflect the new balance that we have:
+In the **app.rb** file, when something is being bought, it creates a new JWT to reflect the new balance that we have:
 
 ```ruby
-users[user_email][:balance] += PRODUCTS[product_index_][:price]
-    users[user_email][:quotes].delete_at(product_index)
+ if product && users[user_email][:balance] >= product[:price]
+    users[user_email][:balance] -= product[:price]
+    users[user_email][:quotes].push((product[:Product]))
 
     user_info = {
       email: user_email,
@@ -188,5 +189,17 @@ users[user_email][:balance] += PRODUCTS[product_index_][:price]
     response.set_cookie("jwt", value: new_token, path: "/")
 ```
 
+We can abuse this JWT update process through the use of Burpe Suites Repeater.
 
+1. Capture the traffic of buying a product (in this case, the second one as to optimize profits).
+![Initial Buy Captured](\assets\images\April2025MetaCTF\InitialBuyCaptured.png)
 
+2. **Before forwarding the captured traffic within the proxy,** send it to the repeater and send that request as many times as you can until you have "Insufficient funds."
+![Repeater Abuse](\assets\images\April2025MetaCTF\RepeaterAbuse.png)
+<p style="font-size:20px; font-style:italic;">Traffic after the 6th purchase</p>
+
+3. Now forward the original captured traffic from the proxy and turn off the intercept.
+Notice that it will say "Insufficient funds or product not found," since this will technically be the 7th purchase that you've attempted.
+![Seventh Purchase](\assets\images\April2025MetaCTF\SeventhPurchase.png)  
+However, once we load the Profile page, we see that our balance... is still at $100!
+![Free Products Who Dis](\assets\images\April2025MetaCTF\FreeProductsWhoDis.png) 
