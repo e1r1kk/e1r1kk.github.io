@@ -198,7 +198,7 @@ We can abuse this JWT update process through the use of Burpe Suites Repeater.
 ![Initial Buy Captured](\assets\images\April2025MetaCTF\InitialBuyCaptured.png)
 
 2. **Before forwarding the captured traffic within the proxy,** send it to the Repeater and send that request as many times as you can until you have "Insufficient funds."
-![Repeater Abuse](\assets\images\April2025MetaCTF\RepeaterAbuse.png)
+![Repeater Abuse](\assets\images\April2025MetaCTF\RepeaterAbuseResponse.png)
 
 3. Now forward the original captured traffic from the proxy, turn off the intercept.
 Upon loading the profile page, we'd normally expect to see our balance at $0 based on our response within the Burpe Repeater. But since we froze the traffic with our original JWT that had a balance of $100 dollars, sending it only after we had bought as many products as we could through the Repeater, we confuse the app into setting the new JWT as the exact same JWT, resulting in no lost of funds!
