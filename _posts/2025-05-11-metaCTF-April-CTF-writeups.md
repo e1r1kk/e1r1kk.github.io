@@ -8,7 +8,12 @@ tags:
   - Encryption
 classes: wide
 ---
-
+# Table of Contents
+ - [Overview](#overview)
+ - [Challenges](#challenges)
+    - [1. Caffeine Conundrum (Simple)](#1-caffeine-conundrum)
+    - [2. Metashop](#2-metashop)
+ - [Conclusion](#conclusion)
 ## Overview
 
 On April 24th, [**MetaCTF**](https://metactf.com) hosted a Flash CTF competition providing various challenges to see who could solve them the fastest. Although I didn't compete on the day of the competition, the challenges were still available after the competition ended, so I decided to take a stab at them to see what I could solve!
