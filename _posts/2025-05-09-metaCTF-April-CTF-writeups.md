@@ -130,9 +130,9 @@ For those who don't know what a JWT cookie is (as I didn't upon finding it), it'
 
 Within the payload, we see two parameters being stored: The account's email address and the accounts **balance**. If we take a look at this Docker's **app.rb** file, we can see how this JWT is being made.  
 
-![login view](\assets\images\April2025MetaCTF\LoginView.png)  
-*JWT Creation*
+![login view](\assets\images\April2025MetaCTF\LoginView.png)
+<p style="font-size:20px; font-style:italic;">JWT Creation</p>
 
+![User Authentication Method](\assets\images\April2025MetaCTF\UserAuthenticationMethod.png)
+<p style="font-size:20px; font-style:italic;">JWT Account Authentication</p>  
 
-![User Authentication Method](\assets\images\April2025MetaCTF\UserAuthenticationMethod.png)  
-<p style="font-size:20px; font-style:italic;">JWT Account Authentication</p>
