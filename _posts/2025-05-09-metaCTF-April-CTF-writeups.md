@@ -120,7 +120,7 @@ If we go to our profile, we see that we have $100. The question is, how can we g
 
 The first thing I wanted to do was see what cookies were being sent when loading the profile page. My goal would be to manually set whatever "balance" variable was being used to store the users balance.
 
-Using Burpe Suite, I intercepted the traffic for the profile page and found a JSON Web Token (JWT) cookie:  
+Using Burpe Suite, I intercepted the traffic for the profile page and found a **JSON Web Token** (JWT) cookie:  
 
 ![base profile](\assets\images\April2025MetaCTF\BaseProfileRequest.png)
 
@@ -128,6 +128,11 @@ For those who don't know what a JWT cookie is (as I didn't upon finding it), it'
 
 ![jwt debugger](\assets\images\April2025MetaCTF\JWTDebugger.png)
 
-Within the payload, we see two parameters being stored: The accounts balance and the account's email address. If we take a look at this apps ruby file, we can see how this JWT is being made.  
+Within the payload, we see two parameters being stored: The account's email address and the accounts **balance**. If we take a look at this Docker's **app.rb** file, we can see how this JWT is being made.  
 
 ![login view](\assets\images\April2025MetaCTF\LoginView.png)
+*JWT Creation*
+
+
+![User Authentication Method](\assets\images\April2025MetaCTF\UserAuthenticationMethod.png)
+*JWT Creation*
