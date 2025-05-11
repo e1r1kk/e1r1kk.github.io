@@ -228,7 +228,7 @@ Now that I had enough money, I could buy the flag and see it at the bottom of my
 
 ## Conclusion
 
-Thank you for taking the time to read this post! I will be posting my own writeups for MetaCTF's competitions once a month until August. Once September comes, I will be back to full time classes, so posting will slow down for a little while.  
+Thank you for taking the time to read this post! I will be posting my own writeups for MetaCTF's competitions once a month until August. Once September comes, I will be back in full time classes, so posting will slow down for a little while.  
   
 If you would like to see the official writeups for these challenges, check them out on [MetaCTF's](https://metactf.com/blog/tag/flash-apr2025/) website.
 
