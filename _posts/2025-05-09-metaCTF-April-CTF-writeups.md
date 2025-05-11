@@ -128,11 +128,65 @@ For those who don't know what a JWT cookie is (as I didn't upon finding it), it'
 
 ![jwt debugger](\assets\images\April2025MetaCTF\JWTDebugger.png)
 
-Within the payload, we see two parameters being stored: The account's email address and the accounts **balance**. If we take a look at this Docker's **app.rb** file, we can see how this JWT is being made.  
-
-![login view](\assets\images\April2025MetaCTF\LoginView.png)
+Within the payload, we see two parameters being stored: The account's email address and the accounts **balance**. If we take a look at this Docker's **app.rb** file, we can see how this JWT is being made:
 <p style="font-size:20px; font-style:italic;">JWT Creation</p>
 
-![User Authentication Method](\assets\images\April2025MetaCTF\UserAuthenticationMethod.png)
+```ruby
+post "/login" do
+  if users[params[:email]] && users[params[:email]][:password] == params[:password]
+    user_info = { email: params[:email], balance: users[params[:email]][:balance] }
+    token = JWT.encode(user_info, SECRET_KEY, "HS256")
+    response.set_cookie("jwt", value: token, path: "/")
+    redirect "/"
+  else
+    @error = "Invalid email or password"
+    erb :login
+  end
+end
+```
+
+
 <p style="font-size:20px; font-style:italic;">JWT Account Authentication</p>  
+
+```ruby
+SECRET_KEY = SecureRandom.hex(64)
+helpers do
+  def logged_in?
+    token = request.cookies["jwt"]
+    return false unless token
+
+    begin
+      decoded_token = JWT.decode(token, SECRET_KEY, true, { algorithm: "HS256" })
+      @current_user = decoded_token[0]
+      true
+    rescue JWT::DecodeError
+      false
+    end
+  end
+
+  def current_user
+    @current_user
+  end
+end
+```
+
+This authentication method is used with any GET request done throughout the website. Because of this, manually changing the balance to have $1000 dollars won't be possible since that will also cause the signature of the JWT to change, thus making it invalid. However, there is one spot where the JWT isn't be verified.
+
+#### Solution
+
+In the **app.rb** file, when something is being returned, we create a new JWT to reflect the new balance that we have:
+
+```ruby
+users[user_email][:balance] += PRODUCTS[product_index_][:price]
+    users[user_email][:quotes].delete_at(product_index)
+
+    user_info = {
+      email: user_email,
+      balance: users[user_email][:balance]
+    }
+    new_token = JWT.encode(user_info, SECRET_KEY, "HS256")
+    response.set_cookie("jwt", value: new_token, path: "/")
+```
+
+
 
