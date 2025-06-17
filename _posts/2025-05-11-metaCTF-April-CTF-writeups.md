@@ -2,7 +2,7 @@
 title: "MetaCTF April 2025 CTF Writeup"
 categories:
   - MetaCTF Writeups
-comments: true
+
 tags:
   - CTF
   - Webapp
