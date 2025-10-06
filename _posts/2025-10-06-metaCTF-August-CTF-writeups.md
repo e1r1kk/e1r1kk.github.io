@@ -1,5 +1,5 @@
 ---
-title: MetaCTF August 2025 CTF Writeup
+title: MetaCTF August 2025 Writeups
 categories:
   - MetaCTF Writeups
 tags:
