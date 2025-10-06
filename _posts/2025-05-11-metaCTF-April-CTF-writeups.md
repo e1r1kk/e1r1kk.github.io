@@ -6,6 +6,7 @@ tags:
   - Webapp
   - Encryption
 classes: wide
+title: MetaCTF April 2025 Writeups
 ---
 ## Table of Contents
  - [Overview](#overview)
