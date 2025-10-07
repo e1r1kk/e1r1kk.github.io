@@ -124,7 +124,7 @@ Utilizing the question column within a WHERE statement helped limit the scope of
 
 Thus, after submitting this query and ending the game, I got the following output:
 
-![flag2]((\assets\images\August2025MetaCTF\flag2.png)
+![flag2](\assets\images\August2025MetaCTF\flag2.png)
 
 With this output, we get our flag: **MetaCTF{wh4t_1s_7h3_fl4g_f0r_7hi5_ch5l1eng3}**
 ## Conclusion
