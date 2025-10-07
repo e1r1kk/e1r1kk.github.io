@@ -77,7 +77,7 @@ Summary format (endpoint \game_end):
 
 ![gameSummary](\assets\images\August2025MetaCTF\gameSummary.png)
 
-My immediate question when presented with a single text box for submitting answers was, "I wonder if I can inject some SQL?" So I inputted ' OR 1=1;-- just to test the waters and submitted it as my answers.. and was rewarded the points..? Interesting...
+My immediate question when presented with a single text box for submitting answers was, "I wonder if I can inject some SQL?" So I inputted **' OR 1=1;--** just to test the waters and submitted it as my answers.. and was rewarded the points? Interesting...
 
 ![firstInjection]"\assets\images\August2025MetaCTF\firstInjection.png"
 
@@ -87,9 +87,9 @@ After finding out that SQL Injection was present, I wanted to know if any verbos
 **Error:** unrecognized token: "'"  
 **Query:** SELECT * FROM problems WHERE id = 135 AND answer = '' OR 1=1'
 ```
-Based on this output, we begin to understand more about the structure of the database. So far, we know that within the table "problems," there are columns id and answer.
+Based on this output, we begin to understand more about the structure of the database. So far, we know that within the table **problems**, there are columns **id** and **answer**.
 
-We can find more information about the table by capturing the traffic of the original ' OR 1=1;-- submission and looking at the response from the website:
+We can find more information about the table by capturing the traffic of the original **' OR 1=1;--** submission and looking at the response from the website:
 
 ```JSON
 {"correct":true,
@@ -99,13 +99,13 @@ We can find more information about the table by capturing the traffic of the ori
 }
 ```
 
-Based on the response, we uncover two more columns: "difficulty" and "question." To see if these are all the columns, we can do a simple UNION SELECT NULL query to check the number of columns within the "problems" table. Since we know 4 of the columns already, we can input "' UNION SELECT NULL,NULL,NULL,NULL from problems;--"  to see if we get rewarded points. Once inputted, we got the following response:
+Based on the response, we uncover two more columns: **difficulty** and **question.** To see if these are all the columns, we can do a simple **UNION SELECT NULL** query to check the number of columns within the **problems** table. Since we know 4 of the columns already, we can input " **' UNION SELECT NULL,NULL,NULL,NULL from problems;--**  to see if we get rewarded points. Once inputted, we got the following response:
 
 ![unionSelect](\assets\images\August2025MetaCTF\unionSelect.png)
 
 This confirms that there are only 4 columns within this table. Now we can start making a query that will retrieve our final flag.
 
-At first, I tried doing " ' UNION SELECT answer, id, question, difficulty from problems where question = "What is the flag for this CTF challenge?", " using the question provided from the briefing to try and limit down the output to just our flag. At first, I thought this wasn't doing anything and I was starting to wonder if I was going down the wrong rabbit hole. But after the game ended, I noticed that where it records your answer, it was storing the question instead: 
+At first, I tried doing " **' UNION SELECT answer, id, question, difficulty from problems where question = "What is the flag for this CTF challenge?"**, using the question provided from the briefing to try and limit down the output to just our flag. At first, I thought this wasn't doing anything and I was starting to wonder if I was going down the wrong rabbit hole. But after the game ended, I noticed that where it records your answer, it was storing the question instead: 
 
 ![weirdAnswerOutput](\assets\images\August2025MetaCTF\weirdAnswerOutput.png)
 
@@ -115,7 +115,7 @@ Based on this, I was able to conclude that it was most likely outputting whateve
 
 After clicking "Start Game," as my answer for the question, I submitted the following answer: 
 
-```
+```SQL
  ' UNION SELECT NULL, NULL, answer, NULL from problems where question = "What is the flag for this CTF challenge?"
  
 ``` 
@@ -129,6 +129,6 @@ Thus, after submitting this query and ending the game, I got the following outpu
 With this output, we get our flag: **MetaCTF{wh4t_1s_7h3_fl4g_f0r_7hi5_ch5l1eng3}**
 ## Conclusion
 
-Thank you for taking the time to read my process work! Solving these challenges are always a fun (though sometimes frustrating) time and it really helps me develop my skills using industry standard tools. For anyone who may have struggled with these two challenges, I hope these writeups helped you understand where you may have gone wrong and how to approach future problems like these in the future!
+Thank you for taking the time to read my process work! Solving these challenges are always a fun (though sometimes frustrating) time and it really helps me develop my skills using industry standard tools. For anyone who may have struggled with these two challenges, I hope these writeups helped you understand where you may have gone wrong and how to approach problems like these in the future!
 
-I've gotten quite busy with school now that my third year at Sheridan has started, so unlike last post, I won't be making any promises as to when my next post will be! However, as a CTF developer for [ISSessions](https://issessions.ca/) annual CTF, stay tuned for a post around the end of January or the beginning of February which will explain the challenges that I've created for that event, alongside how to solve them!
+I've gotten quite busy with school now that my third year at Sheridan has started, so unlike last post, I won't be making any promises as to when my next post will be! However, as a CTF developer for [ISSessions](https://issessions.ca/) annual CTF, stay tuned for a post around the end of January or the beginning of February which will provide the challenges that I've created for the event, alongside their corresponding writeups!
