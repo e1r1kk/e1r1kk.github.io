@@ -11,7 +11,7 @@ classes: wide
 ## Table of Contents
  - [Overview](#overview)
  - [Challenges](#challenges)
-    - [1. Baby Something (VERY Simple)](#1-baby-something)
+    - [1. Baby Something](#1-baby-something)
     - [2. Super Quick Logic Invitational](#2-super-quick-logic-invitational)
  - [Conclusion](#conclusion)
 
