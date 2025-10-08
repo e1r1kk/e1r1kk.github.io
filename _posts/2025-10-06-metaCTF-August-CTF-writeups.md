@@ -61,7 +61,7 @@ We're provided the following message:
 
 In addition, we're provided a link to the trivia game which looks like this: 
 
-![website hub](\assets\images\August2025MetaCTF\websitehub)
+![website hub](\assets\images\August2025MetaCTF\websitehub.png)
 
 Based on this briefing, we most likely have to manipulate the site in some way to retrieve our flag.
 
@@ -79,7 +79,7 @@ Summary format (endpoint \game_end):
 
 My immediate question when presented with a single text box for submitting answers was, "I wonder if I can inject some SQL?" So I inputted **' OR 1=1;--** just to test the waters and submitted it as my answers.. and was rewarded the points? Interesting...
 
-![firstInjection]"\assets\images\August2025MetaCTF\firstInjection.png"
+![firstInjection](\assets\images\August2025MetaCTF\firstInjection.png)
 
 After finding out that SQL Injection was present, I wanted to know if any verbose information would be present if I were to do an invalid query. Thus, I inputted a broken SQL query and got the following output: 
 
