@@ -11,8 +11,8 @@ classes: wide
 ## Table of Contents
  - [Overview](#overview)
  - [Challenges](#challenges)
-    - [1. Baby Something](#1-baby-something)
-    - [2. Super Quick Logic Invitational](#2-super-quick-logic-invitational)
+    - [1. Baby Something (Packet Analysis)](#1-baby-something)
+    - [2. Super Quick Logic Invitational (SQL Injection)](#2-super-quick-logic-invitational)
  - [Conclusion](#conclusion)
 
 ## Overview

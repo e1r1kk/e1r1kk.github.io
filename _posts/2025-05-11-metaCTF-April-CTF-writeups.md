@@ -11,8 +11,8 @@ title: MetaCTF April 2025 Writeups
 ## Table of Contents
  - [Overview](#overview)
  - [Challenges](#challenges)
-    - [1. Caffeine Conundrum (Simple)](#1-caffeine-conundrum)
-    - [2. Metashop (Complex)](#2-metashop)
+    - [1. Caffeine Conundrum (Code Analysis\Encryption)](#1-caffeine-conundrum)
+    - [2. Metashop (JWT Token Manipulation)](#2-metashop)
  - [Conclusion](#conclusion)
  
 ## Overview
