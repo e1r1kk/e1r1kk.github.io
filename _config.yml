@@ -74,6 +74,9 @@ author:
     - label: "LinkedIn"
       icon: "fa-brands fa-linkedin"
       url: "https://www.linkedin.com/in/eirik-yates-7534a5343/"
+    - label: "YouTube"
+      icon: "fa-brands fa-youtube"
+      url: "https://www.youtube.com/@eirikya"
 
 footer:
   links:
@@ -86,6 +89,10 @@ footer:
     - label: "LinkedIn"
       icon: "fa-brands fa-linkedin"
       url: "https://www.linkedin.com/in/eirik-yates-7534a5343/"
+    - label: "YouTube"
+      icon: "fa-brands fa-youtube"
+      url: "https://www.youtube.com/@eirikya"
+
 
 defaults:
   # _posts
