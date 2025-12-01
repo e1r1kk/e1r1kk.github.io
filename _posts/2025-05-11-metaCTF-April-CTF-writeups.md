@@ -203,21 +203,21 @@ In the **app.rb** file, I found that when something was being bought, it updated
 
 I noticed that the code never verified the balance before being updated, thus I could abuse this JWT update process through the use of Burpe Suites Repeater through the following steps:
 
-1. I Captured the traffic of buying a product (in this case, the second one as to optimize profits).  
+1 - I Captured the traffic of buying a product (in this case, the second one as to optimize profits).  
 
 ![Initial Buy Captured](\assets\images\April2025MetaCTF\InitialBuyCaptured.png)
 
-2. **Before forwarding the captured traffic within the proxy,** I sent it to the Repeater and processed that request as many times as I could until I had "Insufficient funds."  
+2 -  **Before forwarding the captured traffic within the proxy,** I sent it to the Repeater and processed that request as many times as I could until I had "Insufficient funds."  
 
 ![Repeater Abuse](\assets\images\April2025MetaCTF\RepeaterAbuseResponse.png)
 
-3. I then processed the captured traffic from the proxy itself and turned off the intercept.  
+3 - I then processed the captured traffic from the proxy itself and turned off the intercept.  
   
 Since I froze the traffic with my original JWT that had a balance of $100 dollars, sending it only after I had bought as many products as I could through the Repeater, I confused the app into setting the new JWT as the one with $100 dollars, resulting in no lost of funds!  
 
 ![Free Products Who Dis](\assets\images\April2025MetaCTF\FreeProductsWhoDis.png) 
 
-4. After selling all of my "purchased" products, I repeated Step 1-3 until I had enough money to purchase the flag!  
+4 - After selling all of my "purchased" products, I repeated Step 1-3 until I had enough money to purchase the flag!  
   
 Eventually, my profile looked like this:
 
